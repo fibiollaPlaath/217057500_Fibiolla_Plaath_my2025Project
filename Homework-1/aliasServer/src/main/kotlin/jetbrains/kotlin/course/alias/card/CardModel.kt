@@ -1,6 +1,7 @@
 package jetbrains.kotlin.course.alias.card
 
 import jetbrains.kotlin.course.alias.util.Identifier
+import kotlinx.serialization.Serializable
 
 /**
  * TASK 4
@@ -16,11 +17,13 @@ import jetbrains.kotlin.course.alias.util.Identifier
  *             4. These don't have default values.
  *             5. Must be defined in primary constructor.
  */
+@Serializable
 @JvmInline
 value class Word(
     val word: String
 )
 
+@Serializable
 data class Card(
     val id: Identifier,
     val words: List<Word>

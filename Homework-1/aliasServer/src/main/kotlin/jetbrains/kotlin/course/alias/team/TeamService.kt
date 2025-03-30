@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service
  */
 @Service
 class TeamService(
-    private val identifierFactory: IdentifierFactory = IdentifierFactory()
+    private var identifierFactory: IdentifierFactory = IdentifierFactory()
 ) {
     companion object {
         val teamsStorage: MutableMap<Identifier, Team> = mutableMapOf()
@@ -41,4 +41,7 @@ class TeamService(
         }
         return newTeams
     }
+
+    fun getIdentifierCounter(): Int = identifierFactory.getCounter()
+    fun setIdentifierCounter(value: Int) = identifierFactory.setCounter(value)
 }

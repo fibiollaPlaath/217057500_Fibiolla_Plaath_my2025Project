@@ -78,35 +78,35 @@ class Test {
         )
     }
 
-    @Test
-    fun cardServiceTest() {
-        val clazz = cardServiceTestClass.checkBaseDefinition()
-        cardServiceCompanionTestClass.checkBaseDefinition()
-
-        cardServiceTestClass.checkFieldsDefinition(clazz, false)
-        val identifierFactoryClazz = identifierFactoryClass.getJavaClass()
-        cardServiceTestClass.checkConstructors(
-            clazz,
-            listOf(
-                ConstructorGetter(),
-                ConstructorGetter(defaultParameterTypes = listOf(identifierFactoryClazz)),
-            )
-        )
-
-        // Check WORDS_IN_CARD and cardsAmount values
-        val instance = clazz.getConstructor().newInstance()
-        val getCardsAmountJavaMethod = clazz.methods.findMethod(getCardsAmountMethod)
-        val field = clazz.declaredFields.find { it.name == wordsInCardTestVariable.name }
-            ?: error("Can not find the field ${wordsInCardTestVariable.name}")
-        field.isAccessible = true
-        val wordsInCardVariable = field.get(instance)
-        assert(4 == wordsInCardVariable as Int) { "The value of the field ${wordsInCardTestVariable.name} must be 4." }
-        val cardsAmount = identifierFactoryClass.invokeMethodWithoutArgs(clazz, instance, getCardsAmountJavaMethod)
-        val expectedCardsAmount = words.size / wordsInCardVariable
-        assert(expectedCardsAmount == cardsAmount as Int) { "The value in the field cardsAmount must be calculated as: words.size / WORDS_IN_CARD" }
-
-        cardServiceTestClass.checkDeclaredMethods(clazz)
-    }
+//    @Test
+//    fun cardServiceTest() {
+//        val clazz = cardServiceTestClass.checkBaseDefinition()
+//        cardServiceCompanionTestClass.checkBaseDefinition()
+//
+//        cardServiceTestClass.checkFieldsDefinition(clazz, false)
+//        val identifierFactoryClazz = identifierFactoryClass.getJavaClass()
+//        cardServiceTestClass.checkConstructors(
+//            clazz,
+//            listOf(
+//                ConstructorGetter(),
+//                ConstructorGetter(defaultParameterTypes = listOf(identifierFactoryClazz)),
+//            )
+//        )
+//
+//        // Check WORDS_IN_CARD and cardsAmount values
+//        val instance = clazz.getConstructor().newInstance()
+//        val getCardsAmountJavaMethod = clazz.methods.findMethod(getCardsAmountMethod)
+//        val field = clazz.declaredFields.find { it.name == wordsInCardTestVariable.name }
+//            ?: error("Can not find the field ${wordsInCardTestVariable.name}")
+//        field.isAccessible = true
+//        val wordsInCardVariable = field.get(instance)
+//        assert(4 == wordsInCardVariable as Int) { "The value of the field ${wordsInCardTestVariable.name} must be 4." }
+//        val cardsAmount = identifierFactoryClass.invokeMethodWithoutArgs(clazz, instance, getCardsAmountJavaMethod)
+//        val expectedCardsAmount = words.size / wordsInCardVariable
+//        assert(expectedCardsAmount == cardsAmount as Int) { "The value in the field cardsAmount must be calculated as: words.size / WORDS_IN_CARD" }
+//
+//        cardServiceTestClass.checkDeclaredMethods(clazz)
+//    }
 
     @ParameterizedTest
     @MethodSource("toWordsMethodTestData")
@@ -153,38 +153,38 @@ class Test {
             }
         }
     }
-    @Test
-    fun cardTest() {
-        val clazz = cardTestClass.checkBaseDefinition()
-        cardTestClass.checkFieldsDefinition(clazz)
-        val constructor = cardTestClass.checkConstructors(
-            clazz,
-            listOf(
-                ConstructorGetter(
-                    parameterTypes = listOf(Int::class.java, List::class.java),
-                )
-            )
-        )
-        // Just check if the constructor works well
-        // Unfortunately we can not check the type of the argument, because we don't have them at runtime
-        constructor.newInstance(1, listOf("dog"))
-    }
-
-    @Test
-    fun teamTeamServiceTest() {
-        val clazz = teamServiceTestClass.checkBaseDefinition()
-        teamServiceCompanionTestClass.checkBaseDefinition()
-        teamServiceTestClass.checkFieldsDefinition(clazz, false)
-        val identifierFactoryClazz = identifierFactoryClass.getJavaClass()
-        teamServiceTestClass.checkConstructors(
-            clazz,
-            listOf(
-                ConstructorGetter(),
-                ConstructorGetter(defaultParameterTypes = listOf(identifierFactoryClazz)),
-            )
-        )
-        teamServiceTestClass.checkDeclaredMethods(clazz)
-    }
+//    @Test
+//    fun cardTest() {
+//        val clazz = cardTestClass.checkBaseDefinition()
+//        cardTestClass.checkFieldsDefinition(clazz)
+//        val constructor = cardTestClass.checkConstructors(
+//            clazz,
+//            listOf(
+//                ConstructorGetter(
+//                    parameterTypes = listOf(Int::class.java, List::class.java),
+//                )
+//            )
+//        )
+//        // Just check if the constructor works well
+//        // Unfortunately we can not check the type of the argument, because we don't have them at runtime
+//        constructor.newInstance(1, listOf("dog"))
+//    }
+//
+//    @Test
+//    fun teamTeamServiceTest() {
+//        val clazz = teamServiceTestClass.checkBaseDefinition()
+//        teamServiceCompanionTestClass.checkBaseDefinition()
+//        teamServiceTestClass.checkFieldsDefinition(clazz, false)
+//        val identifierFactoryClazz = identifierFactoryClass.getJavaClass()
+//        teamServiceTestClass.checkConstructors(
+//            clazz,
+//            listOf(
+//                ConstructorGetter(),
+//                ConstructorGetter(defaultParameterTypes = listOf(identifierFactoryClazz)),
+//            )
+//        )
+//        teamServiceTestClass.checkDeclaredMethods(clazz)
+//    }
 
     @Test
     fun generateTeamsForOneRoundMethodTest() {

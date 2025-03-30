@@ -38,7 +38,7 @@ import org.springframework.stereotype.Service
  */
 @Service
 class CardService(
-    private val identifierFactory: IdentifierFactory = IdentifierFactory()
+    private var identifierFactory: IdentifierFactory = IdentifierFactory()
 ) {
     private val cards: List<Card> = generateCards()
 
@@ -65,4 +65,7 @@ class CardService(
     fun getCardByIndex(index: Int): Card {
         return cards.getOrNull(index) ?: error("Card with index $index not found.")
     }
+
+    fun getIdentifierCounter(): Int = identifierFactory.getCounter()
+    fun setIdentifierCounter(value: Int) = identifierFactory.setCounter(value)
 }
