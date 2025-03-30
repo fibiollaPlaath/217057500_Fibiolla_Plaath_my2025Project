@@ -1,7 +1,5 @@
 package jetbrains.kotlin.course.alias.util
 
-import kotlinx.serialization.Serializable
-
 /**
  * TASK 1
  *   - Create type alias Identifier:
