@@ -7,6 +7,10 @@ import jetbrains.kotlin.course.alias.team.TeamService
 import org.springframework.stereotype.Component
 import javax.annotation.PreDestroy
 
+/**
+ * OPTIONAL TASK 5
+ *   - Saves game state when server shuts down.
+ */
 @Component
 class ShutDownSaver(
     private val teamService: TeamService,
@@ -16,8 +20,8 @@ class ShutDownSaver(
 ) {
     @PreDestroy
     fun saveGameState() {
-        println("Saving game state before shutdown...")
+        println("Saving game state before shutdown")
         gameStateService.saveState(teamService, cardService, gameResultsService)
-        println("Game state saved.")
+        println("Game state saved")
     }
 }

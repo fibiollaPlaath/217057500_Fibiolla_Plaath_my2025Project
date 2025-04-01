@@ -32,15 +32,21 @@ class GameResultsService {
 
     fun saveGameResults(result: GameResult): Unit {
         if (result.isEmpty()) {
-            error("Game result cannot be empty.")
+            throw IllegalArgumentException("Game result cannot be empty.")
         }
 
-        result.forEach { team ->
-            if (!TeamService.teamsStorage.containsKey(team.id)) {
-                error("Invalid team ID: ${team.id}")
-            }
+        val invalidTeamIds = result.filter { team ->
+            !TeamService.teamsStorage.containsKey(team.id)
+        }.map { it.id }
+
+        if (invalidTeamIds.isNotEmpty()) {
+            throw IllegalArgumentException("Invalid team ID(s): ${invalidTeamIds.joinToString(", ")}")
         }
+
+        // Add to gameHistory if all validations pass
         gameHistory.add(result)
+        println("Game result saved successfully: $result")
+
     }
 
     fun getAllGameResults(): List<GameResult> = gameHistory.toList().asReversed()
